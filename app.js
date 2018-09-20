@@ -80,12 +80,3 @@ $(document).keypress(function(e){
     console.log('changing sentence')
     changeSentence();}
 });
-
-  //$(document).keyup( function(){
-   //   console.log('letterIndex', letterIndex);
-    //  console.log('lastLetter', lastLetter)
-   //   if(sentences[currentSentence][letterIndex] == lastLetter){
-   //       console.log('changing sentence')
-   //     changeSentence();
-//}
-//});
