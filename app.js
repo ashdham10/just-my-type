@@ -1,6 +1,11 @@
 $(document).ready(function(){
     $('#keyboard-upper-container').hide();
 });
+$(document).ready(function(){
+    $('.fa-check').hide();
+    $('.fa-times').hide();
+});
+
 //Shift function
 $(document).keydown(function(e){ 
 if (e.keyCode == 16) {
@@ -14,16 +19,73 @@ $(document).keyup(function(e){
     $('#keyboard-upper-container').hide();
     }
 }); 
-//Highlighting pressed key
+
+//let sentences = ['hello', 'goodbye'];
+ let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 
+                 'Too ato too nOt enot one totA not anot tOO aNot', 
+                 'oat itain oat tain nate eate tea anne inant nean', 
+                 'itant eate anot eat nato inate eat anot tain eat', 
+                 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
+
+let letterIndex = 0;
+let currentSentence = 0;
+let sentence = sentences[currentSentence];
+let letter = sentence[letterIndex];
+let lastLetter = sentence[sentence.length];
+
+$('#sentence').append(sentence);
+$('#target-letter').append(letter);
+$('#feedback').append(feedback);
+
+//changing sentence
+function changeSentence(){
+    $('#sentence').empty();
+    letterIndex = 0;
+    currentSentence++;
+    $('#sentence').append(sentences[currentSentence]);
+}
+
+//highlighting keys
 $(document).keypress(function(e){
     $(`#${e.key.charCodeAt()}`).css('background', 'yellow');
-   
 });
 $(document).keyup(function(e){
     $(`#${e.key.charCodeAt()}`).css('background', '');
 });
 
-let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 'Too ato too nOt enot one totA not anot tOO aNot', 'oat itain oat tain nate eate tea anne inant nean', 'itant eate anot eat nato inate eat anot tain eat', 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
+//stop scroll down with spacebar 
+$(document).keypress(function(e) {
+    if (e.which == 32) {
+        return false;
+    }
+});
 
-$('#sentence').append(sentences[0]);
+//adding letters and sentences
+$(document).keypress(function(e){
+    if (e.which == 163) {
+        e.preventDefault();}                         
+  if (e.keyCode == letter.charCodeAt()){
+    letterIndex++;
+    letter = sentence[letterIndex]; 
+    $('#target-letter').empty();
+    $('#target-letter').append(sentences[currentSentence][letterIndex]);
+    $('.fa-check').show();
+    $('.fa-times').hide(); 
+ }
+  else {
+    $('.fa-times').show();
+    $('.fa-check').hide();
+  }
+  if(sentences[currentSentence][letterIndex] == lastLetter){
+    console.log('changing sentence')
+    changeSentence();}
+});
 
+  //$(document).keyup( function(){
+   //   console.log('letterIndex', letterIndex);
+    //  console.log('lastLetter', lastLetter)
+   //   if(sentences[currentSentence][letterIndex] == lastLetter){
+   //       console.log('changing sentence')
+   //     changeSentence();
+//}
+//});

@@ -33,10 +33,10 @@
 #feedback {
   font-size: 20px;
 }
-.glyphicon-ok {
+.fa-check {
   color: #1DA237
 }
 
-.glyphicon-remove {
+.fa-times {
   color : #CD2626
 }
