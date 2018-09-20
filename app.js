@@ -21,7 +21,7 @@ $(document).keyup(function(e){
 }); 
 
 //let sentences = ['hello', 'goodbye'];
- let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 
+let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 
                  'Too ato too nOt enot one totA not anot tOO aNot', 
                  'oat itain oat tain nate eate tea anne inant nean', 
                  'itant eate anot eat nato inate eat anot tain eat', 
@@ -33,7 +33,6 @@ let sentence = sentences[currentSentence];
 let letter = sentence[letterIndex];
 let lastLetter = sentence[sentence.length];
 
-$('#sentence').append(sentence);
 $('#target-letter').append(letter);
 $('#feedback').append(feedback);
 
@@ -41,9 +40,12 @@ $('#feedback').append(feedback);
 function changeSentence(){
     $('#sentence').empty();
     letterIndex = 0;
-    currentSentence++;
+    sentence = sentences[currentSentence];
+    letter = sentence[letterIndex];
     $('#sentence').append(sentences[currentSentence]);
 }
+changeSentence();
+
 
 //highlighting keys
 $(document).keypress(function(e){
@@ -63,7 +65,7 @@ $(document).keypress(function(e) {
 //adding letters and sentences
 $(document).keypress(function(e){
     if (e.which == 163) {
-        e.preventDefault();}                         
+        e.preventDefault();}         
   if (e.keyCode == letter.charCodeAt()){
     letterIndex++;
     letter = sentence[letterIndex]; 
@@ -78,5 +80,6 @@ $(document).keypress(function(e){
   }
   if(sentences[currentSentence][letterIndex] == lastLetter){
     console.log('changing sentence')
+    currentSentence++;
     changeSentence();}
 });
