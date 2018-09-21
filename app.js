@@ -1,8 +1,11 @@
+//hides uppercase keyboard
 $(document).ready(function(){
     $('#keyboard-upper-container').hide();
 });
+
+//hides check and x
 $(document).ready(function(){
-    $('.fa-check').hide();
+   $('.fa-check').hide();
     $('.fa-times').hide();
 });
 
@@ -20,7 +23,6 @@ $(document).keyup(function(e){
     }
 }); 
 
-//let sentences = ['hello', 'goodbye'];
 let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 
                  'Too ato too nOt enot one totA not anot tOO aNot', 
                  'oat itain oat tain nate eate tea anne inant nean', 
@@ -36,6 +38,18 @@ let lastLetter = sentence[sentence.length];
 $('#target-letter').append(letter);
 $('#feedback').append(feedback);
 
+//split sentence up into spans
+function highlightText(){
+    sentence = sentences[currentSentence];
+    let characters = sentence.split('');
+    let spans = characters.map(function(character) {
+        return `<span>${character}</span>`;
+    });
+
+    console.log(spans.join(''));
+}
+highlightText();
+
 //changing sentence
 function changeSentence(){
     $('#sentence').empty();
@@ -43,11 +57,12 @@ function changeSentence(){
     sentence = sentences[currentSentence];
     letter = sentence[letterIndex];
     $('#sentence').append(sentences[currentSentence]);
+    
 }
 changeSentence();
 
 
-//highlighting keys
+//highlighting keyboard
 $(document).keypress(function(e){
     $(`#${e.key.charCodeAt()}`).css('background', 'yellow');
 });
@@ -65,15 +80,16 @@ $(document).keypress(function(e) {
 //adding letters and sentences
 $(document).keypress(function(e){
     if (e.which == 163) {
-        e.preventDefault();}         
-  if (e.keyCode == letter.charCodeAt()){
+        e.preventDefault();
+    }         
+ if (e.keyCode == letter.charCodeAt()){
     letterIndex++;
     letter = sentence[letterIndex]; 
     $('#target-letter').empty();
-    $('#target-letter').append(sentences[currentSentence][letterIndex]);
+    $('#target-letter').append(sentences[currentSentence][letterIndex]); 
     $('.fa-check').show();
     $('.fa-times').hide(); 
- }
+  }
   else {
     $('.fa-times').show();
     $('.fa-check').hide();
@@ -81,5 +97,6 @@ $(document).keypress(function(e){
   if(sentences[currentSentence][letterIndex] == lastLetter){
     console.log('changing sentence')
     currentSentence++;
-    changeSentence();}
+    changeSentence();
+  }
 });
